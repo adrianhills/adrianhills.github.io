@@ -146,4 +146,4 @@ And written disagreement, for real. Not because it makes you look thoughtful, bu
 
 ---
 
-*I write about TPM operating systems, AI-enabled program management, and what senior-altitude work actually looks like. Find me on [LinkedIn](https://www.linkedin.com/in/hillsadrian/).*
+*Find me on [LinkedIn](https://www.linkedin.com/in/hillsadrian/).*
