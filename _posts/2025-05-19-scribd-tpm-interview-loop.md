@@ -251,4 +251,4 @@ If you're in a loop right now, prep at altitude. If you're running one, hire at 
 
 ---
 
-*If this resonated, I write about TPM operating systems, AI-enabled program management, and senior-altitude career moves. Connect with me on [LinkedIn](https://linkedin.com/in/adrianhills).*
+*If this resonated, I write about TPM operating systems, AI-enabled program management, and senior-altitude career moves. Connect with me on [LinkedIn](https://www.linkedin.com/in/hillsadrian/).*
