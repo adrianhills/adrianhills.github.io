@@ -1,0 +1,21 @@
+title: Adrian Hills
+description: TPM operating systems, AI-enabled program management, and senior-altitude career moves.
+author: Adrian Hills
+email: adrianhills@gmail.com
+url: "https://adrianhills.github.io"
+baseurl: ""
+
+permalink: /writing/:year/:slug/
+
+markdown: kramdown
+highlighter: rouge
+
+# GitHub Pages safe plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
