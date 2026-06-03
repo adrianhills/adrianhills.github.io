@@ -33,10 +33,10 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install Pandoc
+      - name: Install Pandoc and epubcheck
         run: |
           sudo apt-get update
-          sudo apt-get install -y pandoc
+          sudo apt-get install -y pandoc epubcheck default-jre-headless
 
       - name: Install Python dependencies
         run: pip install -r notion-kindle/requirements.txt
@@ -51,6 +51,7 @@ jobs:
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
           FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
           SKIP_SEND: ${{ github.event.inputs.skip_send == 'true' && '1' || '' }}
+          EPUBCHECK_JAR: /usr/share/java/epubcheck.jar
         run: python notion-kindle/notion_to_kindle.py
 
       - name: Upload EPUBs as artifacts

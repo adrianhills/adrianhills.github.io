@@ -10,7 +10,11 @@ There is no native Notion→Kindle sync, so this is a 3-stage pipeline:
    subpage becomes a chapter).
 2. **Convert** — run Pandoc to produce a reflowable **EPUB** with a table of
    contents. EPUB (not PDF) is what reads well on a Kindle.
-3. **Deliver** — email the EPUB to your `@kindle.com` Send-to-Kindle address.
+3. **Validate** — run [epubcheck](https://www.w3.org/publishing/epubcheck/) on
+   each EPUB; a book that fails validation is *not* emailed (the run exits
+   non-zero so the failure is visible). Skipped automatically if epubcheck
+   isn't installed; force-skip with `SKIP_VALIDATE=1`.
+4. **Deliver** — email the EPUB to your `@kindle.com` Send-to-Kindle address.
    It shows up under **Library → Docs** and syncs to all your devices.
 
 A scheduled GitHub Action (`.github/workflows/notion-to-kindle.yml`) runs the

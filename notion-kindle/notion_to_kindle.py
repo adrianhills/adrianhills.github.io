@@ -8,7 +8,9 @@ For each book defined in books.json this script:
      each top-level subpage becoming a chapter.
   2. Runs Pandoc to turn that Markdown into an EPUB (reflowable, with a table
      of contents) — the format Kindle handles best.
-  3. Emails the EPUB to your Send-to-Kindle address so it lands in
+  3. Validates the EPUB with epubcheck (if available); a book that fails
+     validation is not emailed.
+  4. Emails the EPUB to your Send-to-Kindle address so it lands in
      Library -> Docs and syncs to all your devices.
 
 Configuration comes entirely from environment variables (secrets) plus the
@@ -29,10 +31,15 @@ Optional env vars:
   BOOKS_FILE     Default: books.json (next to this script)
   OUTPUT_DIR     Default: ./build
   SKIP_SEND      If set to "1", build the EPUBs but do not email them.
+  EPUBCHECK_JAR  Path to epubcheck.jar (default /usr/share/java/epubcheck.jar).
+                 If neither the jar (+ java) nor an `epubcheck` command is found,
+                 validation is skipped with a warning.
+  SKIP_VALIDATE  If set to "1", skip epubcheck validation.
 """
 
 import json
 import os
+import shutil
 import smtplib
 import subprocess
 import sys
@@ -320,6 +327,31 @@ def make_epub(book, markdown_text, output_dir):
     return epub_path
 
 
+def validate_epub(epub_path):
+    """Validate an EPUB with epubcheck. Returns (ok, detail).
+
+    Skips (ok=True) with a note if no validator is available, so the pipeline
+    still runs in environments without epubcheck installed.
+    """
+    jar = os.environ.get("EPUBCHECK_JAR", "/usr/share/java/epubcheck.jar")
+    if shutil.which("java") and Path(jar).is_file():
+        cmd = ["java", "-jar", jar, str(epub_path)]
+    elif shutil.which("epubcheck"):
+        cmd = ["epubcheck", str(epub_path)]
+    else:
+        return True, "skipped (epubcheck not found)"
+
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    output = (result.stdout + result.stderr).strip()
+    if result.returncode != 0:
+        return False, output
+    # epubcheck prints a "Messages: ..." summary line on success; surface it.
+    summary = next(
+        (ln.strip() for ln in output.splitlines() if "Messages:" in ln), "valid"
+    )
+    return True, summary
+
+
 def send_to_kindle(epub_path, book):
     kindle_email = os.environ["KINDLE_EMAIL"]
     smtp_user = os.environ["SMTP_USER"]
@@ -360,6 +392,8 @@ def main():
     output_dir.mkdir(parents=True, exist_ok=True)
 
     skip_send = os.environ.get("SKIP_SEND") == "1"
+    skip_validate = os.environ.get("SKIP_VALIDATE") == "1"
+    failures = 0
 
     for book in books:
         print(f"==> Building '{book['title']}'")
@@ -367,12 +401,23 @@ def main():
         epub_path = make_epub(book, markdown_text, output_dir)
         size_kb = epub_path.stat().st_size / 1024
         print(f"    EPUB written: {epub_path.name} ({size_kb:.0f} KB)")
+
+        if not skip_validate:
+            ok, detail = validate_epub(epub_path)
+            if not ok:
+                failures += 1
+                print(f"    epubcheck FAILED — not emailing this book:\n{detail}")
+                continue
+            print(f"    epubcheck: {detail}")
+
         if skip_send:
             print("    SKIP_SEND=1 -> not emailing.")
             continue
         send_to_kindle(epub_path, book)
         print(f"    Emailed to {os.environ['KINDLE_EMAIL']}")
 
+    if failures:
+        sys.exit(f"{failures} book(s) failed EPUB validation.")
     print("Done.")
 
 
