@@ -1,0 +1,62 @@
+name: Notion to Kindle
+
+# Pushes the Notion knowledge bases (see notion-kindle/books.json) to your
+# Kindle as EPUBs. Runs on a schedule and can be triggered manually.
+on:
+  schedule:
+    # 07:00 UTC daily. Adjust or remove if you only want manual runs.
+    - cron: "0 7 * * *"
+  workflow_dispatch:
+    inputs:
+      skip_send:
+        description: "Build only, do not email to Kindle"
+        required: false
+        default: "false"
+
+# This job only reads Notion and sends email; it does not touch the repo.
+permissions:
+  contents: read
+
+concurrency:
+  group: notion-to-kindle
+  cancel-in-progress: false
+
+jobs:
+  deliver:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+
+      - name: Install Python dependencies
+        run: pip install -r notion-kindle/requirements.txt
+
+      - name: Build and send
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          KINDLE_EMAIL: ${{ secrets.KINDLE_EMAIL }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+          SKIP_SEND: ${{ github.event.inputs.skip_send == 'true' && '1' || '' }}
+        run: python notion-kindle/notion_to_kindle.py
+
+      - name: Upload EPUBs as artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kindle-epubs
+          path: notion-kindle/build/*.epub
+          if-no-files-found: ignore
