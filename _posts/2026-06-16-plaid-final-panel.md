@@ -2,13 +2,13 @@
 layout: post
 title: "Inside My Plaid Final Panel: A Program Management Loop, Three Angles, One Role"
 date: 2026-06-16
-description: "Three sessions in a single afternoon — engineering, operations, product — all circling the same question: can you bring order to integration work without becoming the bottleneck. The questions, the answers, and what the loop was really testing."
+description: "Three sessions in a single day — engineering, operations, product — all circling the same question: can you bring order to integration work without becoming the bottleneck. The questions, the answers, and what the loop was really testing."
 tags: [tpm, career, interviews]
 ---
 
 A final panel is a triangulation exercise.
 
-Three interviewers, three functions, one afternoon — and if you listen closely, they're all measuring the same thing from different seats. At Plaid the role was Integration Operations Program Manager: own the operational governance for new bank integrations, upgrades, and the long migration off screen-scraping onto API-based connections. The kind of program work where the artifacts — master timelines, status trackers, risk and decision logs, launch-readiness checklists — are the job, not the paperwork around it.
+Three interviewers, three functions, one day — and if you listen closely, they're all measuring the same thing from different seats. At Plaid the role was Integration Operations Program Manager: own the operational governance for new bank integrations, upgrades, and the long migration off screen-scraping onto API-based connections. The kind of program work where the artifacts — master timelines, status trackers, risk and decision logs, launch-readiness checklists — are the job, not the paperwork around it.
 
 I sat with a senior engineer, a business-operations lead, and a product manager. Same role, three lenses. Here's the loop: the real questions, the answers I gave, and what I think each seat was actually probing.
 
@@ -30,13 +30,13 @@ I sat with a senior engineer, a business-operations lead, and a product manager.
 
 A senior backend engineer ran this one. The whole session was a credibility test: can you earn trust with engineers without pretending to be one, and can you tell a genuinely hard problem apart from a sandbagged estimate.
 
-He opened with portfolio management — how do you hold a set of concurrent, complex workstreams together. I walked through a credit-bureau data migration: new data models and reporting formats rippling across 17-plus consumer teams, three parallel streams (the team building the new format, the team handling integrations, the consumer teams themselves), a critical path mapped across all of it.
+He opened with portfolio management — how do you hold a set of concurrent, complex workstreams together. I walked through a credit-bureau data migration: new data models and reporting formats rippling across 17 consumer teams, three parallel streams (the team building the new format, the team handling integrations, the consumer teams themselves), a critical path mapped across all of it.
 
 The part that earned the most engagement wasn't the tracking — it was capacity planning:
 
 > I flagged that peak-traffic windows would strain the bureau infrastructure mid-migration, while they were moving monolith to microservices. We built predictive analytics to pre-fetch the data two to three hours ahead of peak.
 
-That's the move that separates a coordinator from a technical partner. Reading the system well enough to see the strain *before* it shows up in an incident.
+That's the move that separates a coordinator from a technical partner: doing the capacity planning nobody had asked for, because you can see where the load is going to land — well before it becomes anyone's problem.
 
 Then the hypothetical: migrate a bank from screen-scraping to OAuth — how do you scope it? I refused to give a timeline first. What I'd gather: how mature the partner's stack is (greenfield or legacy), the volume and criticality of the data, whether it's a clean cutover or a live migration, and how novel this is for us — a standard pattern or a bespoke Chase-scale partner.
 
