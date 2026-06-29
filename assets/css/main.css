@@ -74,6 +74,20 @@ footer a:hover { color: var(--accent-hi); }
 }
 .site-title:hover { color: var(--accent-hi); }
 
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+.nav-links a {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--accent-hi); }
+
 /* Index page */
 .page-title {
   font-size: 0.68rem;
@@ -285,5 +299,11 @@ footer a:hover { color: var(--accent-hi); }
   html { font-size: 16px; }
   body::before { height: 2px; }
   .post-header h1 { font-size: 1.5rem; }
-  header { padding: 2.25rem 0 1.5rem; }
+  header {
+    padding: 2.25rem 0 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .nav-links { gap: 1.25rem; flex-wrap: wrap; }
 }

@@ -1,0 +1,97 @@
+<svg width="1200" height="628" viewBox="0 0 1200 628" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}</style>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#060E1E"/>
+      <stop offset="100%" stop-color="#0D1B33"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="42%" r="35%">
+      <stop offset="0%" stop-color="#1D4ED8" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#060E1E" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="rainbow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#2563EB"/>
+      <stop offset="25%"  stop-color="#7C3AED"/>
+      <stop offset="50%"  stop-color="#059669"/>
+      <stop offset="75%"  stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#DC2626"/>
+    </linearGradient>
+    <pattern id="dots" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="14" cy="14" r="1.1" fill="#1E3A5F" opacity="0.55"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="628" fill="url(#bg)"/>
+  <rect width="1200" height="628" fill="url(#dots)"/>
+  <rect width="1200" height="628" fill="url(#glow)"/>
+
+  <!-- Top rainbow bar -->
+  <rect x="0" y="0" width="1200" height="5" fill="url(#rainbow)"/>
+
+  <!-- Decorative rings behind hero number -->
+  <circle cx="600" cy="238" r="198" fill="none" stroke="#1A3460" stroke-width="1" opacity="0.5"/>
+  <circle cx="600" cy="238" r="152" fill="none" stroke="#1A3460" stroke-width="0.8" opacity="0.4"/>
+  <circle cx="600" cy="238" r="108" fill="none" stroke="#1A3460" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Hero number -->
+  <text x="600" y="308" text-anchor="middle" font-size="190" font-weight="800"
+        fill="white" opacity="0.98" letter-spacing="-6">25</text>
+
+  <!-- Headline -->
+  <text x="600" y="360" text-anchor="middle" font-size="24" font-weight="600"
+        fill="#CBD5E1" letter-spacing="0.2">AI skills built for program management.</text>
+
+  <!-- Sub-headline -->
+  <text x="600" y="390" text-anchor="middle" font-size="13.5" fill="#3B5280" letter-spacing="0.3">
+    from kickoff to retrospective · built with Claude Code · used across Intuit
+  </text>
+
+  <!-- Thin divider -->
+  <line x1="180" y1="418" x2="1020" y2="418" stroke="#1A3460" stroke-width="1"/>
+
+  <!-- Three stats -->
+  <text x="270" y="452" text-anchor="middle" font-size="32" font-weight="800" fill="white">2 wks</text>
+  <text x="270" y="476" text-anchor="middle" font-size="10.5" fill="#3B5280" letter-spacing="1.2">TO BUILD THE SUITE</text>
+
+  <line x1="468" y1="434" x2="468" y2="484" stroke="#1A3460" stroke-width="1"/>
+
+  <text x="600" y="452" text-anchor="middle" font-size="32" font-weight="800" fill="white">85%</text>
+  <text x="600" y="476" text-anchor="middle" font-size="10.5" fill="#3B5280" letter-spacing="1.2">LESS REPORTING TIME</text>
+
+  <line x1="732" y1="434" x2="732" y2="484" stroke="#1A3460" stroke-width="1"/>
+
+  <text x="930" y="452" text-anchor="middle" font-size="32" font-weight="800" fill="white">5 PMI</text>
+  <text x="930" y="476" text-anchor="middle" font-size="10.5" fill="#3B5280" letter-spacing="1.2">PROCESS GROUPS COVERED</text>
+
+  <!-- PMI phase bar -->
+  <rect x="40" y="504" width="1120" height="44" rx="6" fill="#0A1628"/>
+  <rect x="40" y="506" width="224" height="40"
+        rx="0" fill="#2563EB" opacity="0.88"/>
+  <text x="152" y="531" text-anchor="middle"
+        font-size="10" font-weight="700" fill="white" letter-spacing="0.8">INITIATING</text>
+  <rect x="267" y="506" width="221" height="40"
+        rx="0" fill="#7C3AED" opacity="0.88"/>
+  <text x="377" y="531" text-anchor="middle"
+        font-size="10" font-weight="700" fill="white" letter-spacing="0.8">PLANNING</text>
+  <rect x="491" y="506" width="221" height="40"
+        rx="0" fill="#059669" opacity="0.88"/>
+  <text x="601" y="531" text-anchor="middle"
+        font-size="10" font-weight="700" fill="white" letter-spacing="0.8">EXECUTING</text>
+  <rect x="715" y="506" width="221" height="40"
+        rx="0" fill="#D97706" opacity="0.88"/>
+  <text x="825" y="531" text-anchor="middle"
+        font-size="10" font-weight="700" fill="white" letter-spacing="0.8">MONITORING</text>
+  <rect x="939" y="506" width="221" height="40"
+        rx="0" fill="#DC2626" opacity="0.88"/>
+  <text x="1049" y="531" text-anchor="middle"
+        font-size="10" font-weight="700" fill="white" letter-spacing="0.8">CLOSING</text>
+
+  <!-- Rounded caps on outer segments -->
+  <rect x="40" y="506" width="6" height="40" rx="3" fill="#2563EB" opacity="0.88"/>
+  <rect x="1154" y="506" width="6" height="40" rx="3" fill="#DC2626" opacity="0.88"/>
+
+  <!-- Attribution -->
+  <text x="600" y="594" text-anchor="middle" font-size="10" fill="#1A3460" letter-spacing="2">
+    ADRIANHILLS.GITHUB.IO
+  </text>
+</svg>

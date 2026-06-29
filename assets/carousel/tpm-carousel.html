@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  :root {
+    --init:#2563EB; --plan:#7C3AED; --exec:#059669; --mon:#D97706; --close:#DC2626;
+    --ink:#0F172A; --muted:#64748B; --faint:#94A3B8; --line:#E2E8F0;
+  }
+  html, body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); }
+  @page { size:1080px 1350px; margin:0; }
+  .slide {
+    position:relative; width:1080px; height:1350px; background:#fff;
+    page-break-after:always; overflow:hidden;
+  }
+  .slide:last-child { page-break-after:auto; }
+  .slide.dark { background:linear-gradient(160deg,#0B1220 0%,#111E36 100%); color:#fff; }
+  .accent { position:absolute; top:0; left:0; right:0; height:8px;
+    background:linear-gradient(90deg,var(--init) 0%,var(--plan) 25%,var(--exec) 50%,var(--mon) 75%,var(--close) 100%); }
+  .foot { position:absolute; left:72px; right:72px; bottom:54px; display:flex; justify-content:space-between;
+    font-size:20px; letter-spacing:.5px; }
+  .pad { padding:128px 72px 72px; }
+  .kicker { font-size:21px; font-weight:800; letter-spacing:3px; margin-bottom:26px; }
+  .eyebrow { font-size:21px; font-weight:800; letter-spacing:4px; color:rgba(255,255,255,.5); }
+  h2 { font-size:60px; line-height:1.08; font-weight:800; letter-spacing:-1.2px; margin-bottom:30px; }
+  h2.tight { font-size:54px; margin-bottom:22px; }
+  .lead { font-size:30px; line-height:1.5; color:var(--muted); font-weight:400; }
+  .lead.big { font-size:36px; color:var(--ink); line-height:1.4; }
+  .lead.big b { color:var(--init); }
+  .rule { height:1px; background:var(--line); margin:44px 0; }
+
+  /* Cover */
+  .cover { padding:150px 80px 72px; height:100%; display:flex; flex-direction:column; }
+  .cover .eyebrow { margin-bottom:60px; }
+  .cover h1 { font-size:84px; line-height:1.06; font-weight:800; letter-spacing:-2px; max-width:900px; }
+  .cover .hl { color:#60A5FA; }
+  .cover-sub { font-size:40px; margin-top:54px; color:rgba(255,255,255,.82); font-weight:400; }
+  .cover-sub b { color:#fff; }
+  .swipe { margin-top:auto; font-size:30px; font-weight:700; color:#60A5FA; letter-spacing:.5px; }
+
+  /* 70/20/10 */
+  .frame { margin-top:36px; display:flex; flex-direction:column; gap:30px; }
+  .frow { display:flex; align-items:center; gap:26px; }
+  .fpct { font-size:64px; font-weight:800; width:150px; text-align:right; flex:none; letter-spacing:-2px; }
+  .fcard { position:relative; flex:1; border-radius:18px; padding:30px 34px 34px; overflow:hidden; }
+  .facc { position:absolute; left:0; top:0; bottom:0; width:8px; }
+  .flabel { font-size:20px; font-weight:800; letter-spacing:1.5px; margin-bottom:12px; }
+  .fdesc { font-size:26px; color:#334155; margin-bottom:20px; }
+  .ftrack { height:8px; border-radius:4px; background:#E2E8F0; overflow:hidden; }
+  .ftrack span { display:block; height:100%; border-radius:4px; opacity:.75; }
+  .fbadge { flex:none; width:200px; text-align:center; font-size:21px; font-weight:700;
+    border:2px solid; border-radius:14px; padding:16px 0; }
+
+  /* PMI map */
+  .pmi { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:30px; }
+  .pcol { background:#F8FAFC; border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  .phead { color:#fff; font-size:17px; font-weight:800; letter-spacing:.5px; padding:16px 12px; text-align:center; }
+  .pcol ul { list-style:none; padding:18px 14px; }
+  .pcol li { font-size:21px; color:#1E293B; padding:9px 0 9px 18px; position:relative; line-height:1.2; }
+  .pcol li::before { content:""; position:absolute; left:0; top:16px; width:7px; height:7px; border-radius:50%; background:var(--c); }
+  .crossbar { margin-top:26px; background:var(--ink); color:#fff; border-radius:14px; padding:26px;
+    text-align:center; font-size:24px; letter-spacing:.3px; }
+  .crossbar b { color:#93C5FD; }
+
+  /* Skill lists */
+  .phase { margin-top:34px; }
+  .phase-head { font-size:24px; font-weight:800; letter-spacing:1.5px; display:flex; align-items:center; margin-bottom:18px; }
+  .phase-bar { display:inline-block; width:34px; height:5px; border-radius:3px; margin-right:16px; }
+  .skill { display:flex; align-items:baseline; padding:11px 0; border-bottom:1px solid #F1F5F9; }
+  .dot { width:9px; height:9px; border-radius:50%; flex:none; margin-right:18px; transform:translateY(-2px); }
+  .sk-name { font-size:26px; font-weight:700; color:var(--ink); width:330px; flex:none; }
+  .sk-desc { font-size:23px; color:var(--muted); line-height:1.3; }
+
+  /* Close slide */
+  .close { padding:150px 80px 72px; }
+  .stats { display:flex; align-items:center; gap:40px; margin:80px 0 70px; }
+  .stat { flex:1; text-align:center; }
+  .num { font-size:78px; font-weight:800; color:#fff; letter-spacing:-2px; }
+  .slab { font-size:22px; color:rgba(255,255,255,.55); letter-spacing:1px; margin-top:8px; }
+  .vline { width:1px; height:90px; background:rgba(255,255,255,.18); }
+  .closeline { font-size:46px; line-height:1.35; font-weight:700; color:rgba(255,255,255,.92); }
+  .hl2 { color:#60A5FA; }
+  .cta { margin-top:80px; font-size:30px; line-height:1.5; color:rgba(255,255,255,.75); }
+  .cta b { color:#fff; }
+</style></head>
+<body>
+<section class="slide dark">
+    <div class="accent"></div>
+    
+    <div class="cover">
+      <div class="eyebrow">AI-NATIVE PROGRAM MANAGEMENT</div>
+      <h1>Most TPMs spend <span class="hl">70%</span> of their time on work AI can now do in minutes.</h1>
+      <p class="cover-sub">So I built <b>25 tools</b> to prove it.</p>
+      <div class="swipe">Swipe&nbsp;→</div>
+    </div>
+    <div class="foot" style="color:rgba(255,255,255,.45)">
+      <span>adrianhills.github.io</span><span>1 / 8</span>
+    </div>
+  </section>
+<section class="slide">
+    <div class="accent"></div>
+    
+    <div class="pad">
+      <div class="kicker" style="color:#2563EB">THE SETUP</div>
+      <h2>In two weeks, I built 25 Claude&nbsp;Code skills covering the full program management lifecycle.</h2>
+      <p class="lead">From kickoff and capacity planning through escalation, retrospective, and root&nbsp;cause analysis.</p>
+      <div class="rule"></div>
+      <p class="lead big">The time savings were real.<br><b>But the bigger shift was something else.</b></p>
+    </div>
+    <div class="foot" style="color:#94A3B8">
+      <span>adrianhills.github.io</span><span>2 / 8</span>
+    </div>
+  </section>
+<section class="slide">
+    <div class="accent"></div>
+    
+    <div class="pad">
+      <div class="kicker" style="color:#7C3AED">THE MENTAL MODEL</div>
+      <h2 class="tight">How I think about the&nbsp;TPM&nbsp;role</h2>
+      <p class="lead">AI doesn't change the breakdown. It supercharges your impact within each layer.</p>
+      <div class="frame">
+        <div class="frow">
+      <div class="fpct" style="color:#2563EB">70%</div>
+      <div class="fcard" style="background:#EFF6FF">
+        <span class="facc" style="background:#2563EB"></span>
+        <div class="flabel" style="color:#2563EB">EXECUTION</div>
+        <div class="fdesc">status · escalation · decisions · dependencies</div>
+        <div class="ftrack"><span style="width:100%;background:#2563EB"></span></div>
+      </div>
+      <div class="fbadge" style="color:#2563EB;border-color:#2563EB">AI compresses</div>
+    </div>
+        <div class="frow">
+      <div class="fpct" style="color:#7C3AED">20%</div>
+      <div class="fcard" style="background:#F5F3FF">
+        <span class="facc" style="background:#7C3AED"></span>
+        <div class="flabel" style="color:#7C3AED">COLLABORATION</div>
+        <div class="fdesc">alignment · facilitation · cross-functional leadership</div>
+        <div class="ftrack"><span style="width:55%;background:#7C3AED"></span></div>
+      </div>
+      <div class="fbadge" style="color:#7C3AED;border-color:#7C3AED">AI amplifies</div>
+    </div>
+        <div class="frow">
+      <div class="fpct" style="color:#059669">10%</div>
+      <div class="fcard" style="background:#F0FDF4">
+        <span class="facc" style="background:#059669"></span>
+        <div class="flabel" style="color:#059669">INFLUENCE</div>
+        <div class="fdesc">trusted voice — without the authority</div>
+        <div class="ftrack"><span style="width:30%;background:#059669"></span></div>
+      </div>
+      <div class="fbadge" style="color:#059669;border-color:#059669">AI extends</div>
+    </div>
+      </div>
+    </div>
+    <div class="foot" style="color:#94A3B8">
+      <span>adrianhills.github.io</span><span>3 / 8</span>
+    </div>
+  </section>
+<section class="slide">
+    <div class="accent"></div>
+    
+    <div class="pad">
+      <div class="kicker" style="color:#059669">THE STRUCTURE</div>
+      <h2 class="tight">25 skills, mapped to the 5 PMI process groups</h2>
+      <div class="pmi">
+        <div class="pcol">
+      <div class="phead" style="background:#2563EB">① INITIATING</div>
+      <ul style="--c:#2563EB"><li>kickoff</li><li>stakeholder-map</li><li>business-case</li><li>capacity-plan</li></ul>
+    </div>
+        <div class="pcol">
+      <div class="phead" style="background:#7C3AED">② PLANNING</div>
+      <ul style="--c:#7C3AED"><li>workback</li><li>raid</li><li>dependency-scan</li><li>premortem</li><li>offsite-plan</li></ul>
+    </div>
+        <div class="pcol">
+      <div class="phead" style="background:#059669">③ EXECUTING</div>
+      <ul style="--c:#059669"><li>status-update</li><li>comms</li><li>decision</li><li>escalate</li><li>prd-review</li><li>slack-formatting</li><li>zoom-summary</li><li>multi-system</li></ul>
+    </div>
+        <div class="pcol">
+      <div class="phead" style="background:#D97706">④ MONITORING</div>
+      <ul style="--c:#D97706"><li>watchdog</li><li>roadmap-compare</li><li>live RAID</li><li>live deps</li></ul>
+    </div>
+        <div class="pcol">
+      <div class="phead" style="background:#DC2626">⑤ CLOSING</div>
+      <ul style="--c:#DC2626"><li>retro</li><li>async-retro</li><li>rca</li><li>launch-readiness</li></ul>
+    </div>
+      </div>
+      <div class="crossbar">CROSS-CUTTING · <b>program-expert</b> (coaching) · <b>tpm-rockstar</b> (craft review)</div>
+    </div>
+    <div class="foot" style="color:#94A3B8">
+      <span>adrianhills.github.io</span><span>4 / 8</span>
+    </div>
+  </section>
+<section class="slide">
+    <div class="accent"></div>
+    
+    <div class="pad">
+      <div class="kicker" style="color:#2563EB">START &amp; PLAN</div>
+      <h2 class="tight">Setting programs up to win</h2>
+      <div class="phase">
+      <div class="phase-head" style="color:#2563EB">
+        <span class="phase-bar" style="background:#2563EB"></span>① INITIATING
+      </div>
+      <div class="skill">
+      <span class="dot" style="background:#2563EB"></span>
+      <span class="sk-name">kickoff</span>
+      <span class="sk-desc">the 5 questions that make or break a start</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#2563EB"></span>
+      <span class="sk-name">stakeholder-map</span>
+      <span class="sk-desc">who needs what, when, and how</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#2563EB"></span>
+      <span class="sk-name">business-case</span>
+      <span class="sk-desc">the case that actually moves approvals</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#2563EB"></span>
+      <span class="sk-name">capacity-plan</span>
+      <span class="sk-desc">demand vs. availability, before overcommit</span>
+    </div>
+    </div>
+      <div class="phase">
+      <div class="phase-head" style="color:#7C3AED">
+        <span class="phase-bar" style="background:#7C3AED"></span>② PLANNING
+      </div>
+      <div class="skill">
+      <span class="dot" style="background:#7C3AED"></span>
+      <span class="sk-name">workback</span>
+      <span class="sk-desc">schedule built backward from the target date</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#7C3AED"></span>
+      <span class="sk-name">raid</span>
+      <span class="sk-desc">living risks / assumptions / issues / dependencies</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#7C3AED"></span>
+      <span class="sk-name">dependency-scan</span>
+      <span class="sk-desc">chains, circular deps, critical-path exposure</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#7C3AED"></span>
+      <span class="sk-name">premortem</span>
+      <span class="sk-desc">surface failure modes before they happen</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#7C3AED"></span>
+      <span class="sk-name">offsite-plan</span>
+      <span class="sk-desc">an agenda built around decisions, not talk</span>
+    </div>
+    </div>
+    </div>
+    <div class="foot" style="color:#94A3B8">
+      <span>adrianhills.github.io</span><span>5 / 8</span>
+    </div>
+  </section>
+<section class="slide">
+    <div class="accent"></div>
+    
+    <div class="pad">
+      <div class="kicker" style="color:#059669">RUN &amp; WATCH</div>
+      <h2 class="tight">Driving execution, surfacing risk</h2>
+      <div class="phase">
+      <div class="phase-head" style="color:#059669">
+        <span class="phase-bar" style="background:#059669"></span>③ EXECUTING
+      </div>
+      <div class="skill">
+      <span class="dot" style="background:#059669"></span>
+      <span class="sk-name">status-update</span>
+      <span class="sk-desc">exec-ready status from raw notes, in minutes</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#059669"></span>
+      <span class="sk-name">comms</span>
+      <span class="sk-desc">one update, reframed for four audiences</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#059669"></span>
+      <span class="sk-name">decision</span>
+      <span class="sk-desc">options, trade-offs, recommendation, rationale</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#059669"></span>
+      <span class="sk-name">escalate</span>
+      <span class="sk-desc">what changed, what it costs, the exact ask</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#059669"></span>
+      <span class="sk-name">prd-review</span>
+      <span class="sk-desc">find gaps before the post-launch retro does</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#059669"></span>
+      <span class="sk-name">slack-formatting</span>
+      <span class="sk-desc">the right structure for every message type</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#059669"></span>
+      <span class="sk-name">zoom-summary</span>
+      <span class="sk-desc">decisions + owners + actions from a transcript</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#059669"></span>
+      <span class="sk-name">multi-system-status</span>
+      <span class="sk-desc">portfolio-level rollups across tracks</span>
+    </div>
+    </div>
+      <div class="phase">
+      <div class="phase-head" style="color:#D97706">
+        <span class="phase-bar" style="background:#D97706"></span>④ MONITORING
+      </div>
+      <div class="skill">
+      <span class="dot" style="background:#D97706"></span>
+      <span class="sk-name">watchdog</span>
+      <span class="sk-desc">early-warning signals before slips happen</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#D97706"></span>
+      <span class="sk-name">roadmap-compare</span>
+      <span class="sk-desc">what moved between two roadmap versions</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#D97706"></span>
+      <span class="sk-name">live RAID</span>
+      <span class="sk-desc">risk tracking that stays current, not stale</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#D97706"></span>
+      <span class="sk-name">live dependency-scan</span>
+      <span class="sk-desc">critical path, continuously checked</span>
+    </div>
+    </div>
+    </div>
+    <div class="foot" style="color:#94A3B8">
+      <span>adrianhills.github.io</span><span>6 / 8</span>
+    </div>
+  </section>
+<section class="slide">
+    <div class="accent"></div>
+    
+    <div class="pad">
+      <div class="kicker" style="color:#DC2626">CLOSE &amp; COACH</div>
+      <h2 class="tight">Landing the program — and raising the craft</h2>
+      <div class="phase">
+      <div class="phase-head" style="color:#DC2626">
+        <span class="phase-bar" style="background:#DC2626"></span>⑤ CLOSING
+      </div>
+      <div class="skill">
+      <span class="dot" style="background:#DC2626"></span>
+      <span class="sk-name">retro</span>
+      <span class="sk-desc">honest reflection that ends in behavior change</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#DC2626"></span>
+      <span class="sk-name">async-retro</span>
+      <span class="sk-desc">independent input, zero anchoring bias</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#DC2626"></span>
+      <span class="sk-name">rca</span>
+      <span class="sk-desc">root cause and learning, never blame</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#DC2626"></span>
+      <span class="sk-name">launch-readiness</span>
+      <span class="sk-desc">a clean go / no-go against a checklist</span>
+    </div>
+    </div>
+      <div class="phase">
+      <div class="phase-head" style="color:#0F172A">
+        <span class="phase-bar" style="background:#0F172A"></span>✦ CROSS-CUTTING
+      </div>
+      <div class="skill">
+      <span class="dot" style="background:#0F172A"></span>
+      <span class="sk-name">program-expert</span>
+      <span class="sk-desc">coaching that builds judgment, not dependency</span>
+    </div><div class="skill">
+      <span class="dot" style="background:#0F172A"></span>
+      <span class="sk-name">tpm-rockstar</span>
+      <span class="sk-desc">periodic review of senior TPM craft</span>
+    </div>
+    </div>
+    </div>
+    <div class="foot" style="color:#94A3B8">
+      <span>adrianhills.github.io</span><span>7 / 8</span>
+    </div>
+  </section>
+<section class="slide dark">
+    <div class="accent"></div>
+    
+    <div class="pad close">
+      <div class="eyebrow">THE RESULT</div>
+      <div class="stats">
+        <div class="stat"><div class="num">2 wks</div><div class="slab">to build the suite</div></div>
+        <div class="vline"></div>
+        <div class="stat"><div class="num">85%</div><div class="slab">less reporting time</div></div>
+        <div class="vline"></div>
+        <div class="stat"><div class="num">5</div><div class="slab">PMI groups covered</div></div>
+      </div>
+      <p class="closeline">The tools don't replace judgment.<br><span class="hl2">They reduce the tax on it.</span></p>
+      <div class="cta">Full breakdown in the comments&nbsp;👇<br><b>Follow Adrian Hills</b> for more on AI-native program management.</div>
+    </div>
+    <div class="foot" style="color:rgba(255,255,255,.45)">
+      <span>adrianhills.github.io</span><span>8 / 8</span>
+    </div>
+  </section>
+</body></html>
