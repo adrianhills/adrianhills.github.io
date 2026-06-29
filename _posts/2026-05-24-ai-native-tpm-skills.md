@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "25 AI Skills I Built to Run Programs. Here's the Philosophy Behind Them."
+title: "20 AI Skills I Built to Run Programs. Here's the Philosophy Behind Them."
 date: 2026-05-24
-description: "I built 25 Claude Code skills that cover the full program management lifecycle — from kickoff to retrospective. This is why, how they work, and what they actually changed."
+description: "I built 20 Claude Code skills that cover the full program management lifecycle — from kickoff to retrospective. This is why, how they work, and what they actually changed."
 tags: [tpm, ai, tools, program-management]
 ---
 
-I didn't set out to build 25 tools.
+I didn't set out to build 20 tools.
 
 I started with one problem: status updates took too long and communicated too little. I wanted to see if AI could help me get to the first draft faster without sacrificing the senior signal — the risk trajectory, the decision needed, the clear ask. It worked. So I kept going.
 
@@ -38,7 +38,7 @@ Each skill is a markdown file that gets invoked through Claude Code. When I call
 
 The skills don't try to replace judgment. They create the conditions for good judgment to happen faster. A good status update doesn't write itself because the AI generated a draft — it writes itself because the AI forced me to answer the right questions in the right order, and then I applied the context that only I have.
 
-The other principle: one skill, one job. I didn't try to build a Swiss army knife. I built 25 scalpels. Each one has a clear input format, a clear output format, and a clear moment in the program lifecycle where it belongs.
+The other principle: one skill, one job. I didn't try to build a Swiss army knife. I built 20 scalpels. Each one has a clear input format, a clear output format, and a clear moment in the program lifecycle where it belongs.
 
 ---
 
@@ -66,11 +66,9 @@ These skills weren't designed in isolation — they follow the structure that pr
 
 ### Execution and monitoring
 
-**status-update** — Produces an exec-ready status update from raw program notes. Output is structured: RAG signal, key progress, active risks with owners, decisions needed. Estimated time savings: what used to take 45 minutes now takes under 10.
+**status-update** — Produces an exec-ready status update from raw program notes. Output is structured: RAG signal, key progress, active risks with owners, decisions needed. Scales from a single team to portfolio-level reporting across parallel workstreams, at any altitude — ad-hoc, recurring leadership doc, or exec-review prep. Estimated time savings: what used to take 45 minutes now takes under 10.
 
-**multi-system-status-write** — Aggregates status across multiple workstreams or systems into a single coherent narrative. Particularly useful for portfolio-level reporting or programs with parallel tracks.
-
-**watchdog** — Monitors for early warning signals across a program: decision velocity dropping, RAID growing without movement, leading indicators flattening. Surfaces risks before they become slips.
+**tpm-rockstar** — A weekly monitoring standup. Scans Slack, Jira, RAID, and program docs for early warning signals — decision velocity dropping, RAID growing without movement, channels going quiet on business days. Surfaces risks before they become slips, so Monday starts with a triaged list instead of a blank page.
 
 **dependency-scan** — Scans a list of workstreams and milestones, identifies dependency chains, flags circular dependencies, and highlights critical path exposure.
 
@@ -92,9 +90,7 @@ These skills weren't designed in isolation — they follow the structure that pr
 
 ### Communications and alignment
 
-**comms** — Reformats a single technical update for multiple audiences: engineering Slack, exec summary, customer-facing changelog, and all-hands blurb. One input, four outputs, each calibrated to its audience without requiring four separate drafts.
-
-**slack-formatting** — Formats a Slack message with the right structure for its purpose — decision request, status update, escalation, or FYI. Eliminates the wall-of-text problem.
+**comms** — Reformats a single technical update for multiple audiences: engineering Slack, exec summary, customer-facing changelog, and all-hands blurb. One input, four outputs, each calibrated to its audience and structured for its channel — no wall-of-text Slack threads — without requiring four separate drafts.
 
 **zoom-meeting-summary** — Converts raw meeting notes or a transcript into a structured summary: decisions made, action items with owners and dates, open questions. Gets the artifact out of the meeting and into the tracker in under five minutes.
 
@@ -104,9 +100,7 @@ These skills weren't designed in isolation — they follow the structure that pr
 
 **prd-review** — Reviews a PRD or RFC draft and surfaces gaps: undefined edge cases, missing metrics, unstated assumptions, and internal contradictions. Cheaper to find these in the document than in the post-launch retro.
 
-**retro** — Structures a sprint or program retrospective with prompts calibrated for honest reflection — what worked, what didn't, what would we do differently, and what specific behavior change do we commit to.
-
-**async-retro** — Runs an asynchronous retrospective when the team is distributed or when real-time facilitation would produce anchoring bias. Collects independent responses before synthesis.
+**retro** — Structures a sprint or program retrospective with prompts calibrated for honest reflection — what worked, what didn't, what would we do differently, and what specific behavior change do we commit to. Runs synchronously or async — collecting independent responses before synthesis when the team is distributed or when real-time facilitation would anchor the room.
 
 **roadmap-compare** — Compares two versions of a roadmap and surfaces what changed, what moved, what disappeared, and what the net impact is on the critical path. Useful for planning cycles and for making scope changes visible.
 
@@ -118,15 +112,11 @@ These skills weren't designed in isolation — they follow the structure that pr
 
 **launch-readiness** — Runs a structured launch readiness review against a configurable checklist: technical readiness, operational readiness, support readiness, comms, rollback plan, and success metrics. Flags gaps before go-live.
 
-**offsite-plan** — Builds an offsite agenda from a set of goals and constraints. Structures time for the conversations that are hard to have in weekly syncs and ensures the output is a decision or alignment, not just a good discussion.
-
 ---
 
 ### Coaching and program excellence
 
-**program-expert** — A TPM coaching prompt that helps junior or mid-level program managers think through a complex situation at the right altitude. Produces questions, not answers — designed to build judgment, not dependency.
-
-**tpm-rockstar** — Structures a periodic review of TPM craft against the behaviors that actually separate execution from senior altitude: decision quality, dependency surfacing, trade-off clarity, escalation timing, and coaching impact.
+**program-expert** — A per-program knowledge-base oracle and TPM coaching prompt that helps program managers think through a complex situation at the right altitude. Produces questions, not answers — designed to build judgment, not dependency.
 
 ---
 
@@ -156,7 +146,7 @@ The TPM role is being rewritten by AI — not eliminated, rewritten. The executi
 
 ## Building in public
 
-All of these skills are part of an ongoing project to build AI-native program management tooling and share it publicly. The goal is not to have a portfolio — it's to have proof. Anyone can say they work with AI. Fewer people can open a terminal and show you twenty-five tools doing the work.
+All of these skills are part of an ongoing project to build AI-native program management tooling and share it publicly. The goal is not to have a portfolio — it's to have proof. Anyone can say they work with AI. Fewer people can open a terminal and show you twenty tools doing the work.
 
 If you're a senior leader hiring for a TPM role, or an early-stage company trying to figure out how to scale program management without scaling headcount in lockstep, I'm happy to walk through how these work in practice.
 
