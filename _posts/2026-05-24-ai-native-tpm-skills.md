@@ -70,7 +70,7 @@ The PMI view shows lifecycle coverage. Day to day I group them by the job they d
 
 **status-update** — Produces an exec-ready status update from raw program notes. Output is structured: RAG signal, key progress, active risks with owners, decisions needed. Scales from a single team to portfolio-level reporting, at any altitude — ad-hoc, recurring leadership doc, or exec-review prep. What used to take 45 minutes now takes under 10.
 
-**tpm-rockstar** — A weekly monitoring standup. Scans Slack, Jira, Smartsheet, RAID, and program docs in Drive for early warning signals — decision velocity dropping, RAID growing without movement, channels going quiet on business days. Surfaces risks before they become slips, so Monday starts with a triaged list instead of a blank page.
+**tpm-rockstar** — A daily chief-of-staff brief. Scans Slack, Jira, Smartsheet, RAID, Drive, and Calendar for each program — surfacing early warning signals like decision velocity dropping, RAID growing without movement, or channels going quiet — then drafts the follow-ups and preps tomorrow's meetings. The day starts with a triaged list instead of a blank page.
 
 **dependency-scan** — Scans a list of workstreams and milestones, identifies dependency chains, flags circular dependencies, and highlights critical path exposure.
 
@@ -92,7 +92,7 @@ The PMI view shows lifecycle coverage. Day to day I group them by the job they d
 
 ### Communications and alignment
 
-**comms** — Unified stakeholder comms. One technical update in, four outputs out — engineering Slack, exec summary, customer-facing changelog, all-hands blurb — each calibrated to its audience and formatted for its channel, no wall-of-text Slack threads. Also triages the Slack inbox and drafts recognition posts, so everything outbound runs through one skill.
+**comms** — Unified stakeholder comms. One technical update in, four outputs out — engineering Slack, exec summary, customer-facing changelog, all-hands blurb — each calibrated to its audience and formatted for its channel, no wall-of-text Slack threads. Also triages the Slack inbox and drafts recognition and change-management posts, so everything outbound runs through one skill.
 
 **zoom-meeting-summary** — Converts raw meeting notes or a transcript into a structured summary: decisions made, action items with owners and dates, open questions. Gets the artifact out of the meeting and into the tracker in under five minutes.
 
