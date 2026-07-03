@@ -2,7 +2,7 @@
 layout: post
 title: "20 AI Skills I Built to Run Programs. Here's the Philosophy Behind Them."
 date: 2026-05-24
-description: "I built 20 Claude Code skills that cover the full program management lifecycle — from kickoff to retrospective. This is why, how they work, and what they actually changed."
+description: "I built 20 Claude Code skills that cover the full program management lifecycle — kickoff to retrospective. Why I built them, how they work, and what changed."
 tags: [tpm, ai, tools, program-management]
 ---
 
@@ -10,9 +10,9 @@ I didn't set out to build 20 tools.
 
 I started with one problem: status updates took too long and communicated too little. I wanted to see if AI could help me get to the first draft faster without sacrificing the senior signal — the risk trajectory, the decision needed, the clear ask. It worked. So I kept going.
 
-What I built over the next couple of weeks is a suite of Claude Code skills that covers nearly the entire program management lifecycle — from kickoff and capacity planning through escalation, retrospective, and root cause analysis. Each skill is a structured prompt that does one thing well, integrates with how I already work, and gets out of the way.
+What I built over the next couple of weeks is a suite of Claude Code skills that covers the full program management lifecycle — from kickoff and capacity planning through escalation, retrospective, and root cause analysis. Each skill is a structured prompt that does one thing well, integrates with how I already work, and gets out of the way.
 
-This post is about the philosophy behind those tools. What they're designed to do, how they're organized, and what actually changed. These skills have been used across multiple organizations at Intuit — by PMs, TPMs, and other roles — which shaped how broadly I designed them to apply.
+This post is about the philosophy behind those tools. What they're designed to do, how they're organized, and what actually changed. PMs and TPMs across multiple organizations at Intuit have used these skills — which shaped how broadly I designed them to apply.
 
 ---
 
@@ -22,7 +22,7 @@ I see the role of a senior TPM as something different from filling out templates
 
 Here's how I think about the breakdown of that work: roughly 70% is execution — the operational core of moving programs forward. About 20% is team and company collaboration: the leadership, facilitation, and alignment work that keeps cross-functional effort coherent. And 10% is influence without authority — becoming a trusted voice in rooms where you don't have a title to back you up.
 
-AI doesn't change that breakdown. What it does is supercharge your impact within it. When execution gets compressed, you can expand scope and increase velocity without sacrificing quality. The depth of each artifact goes up. The prep work happens faster. And you can do all of it at a level of rigor that used to require more hours than the calendar allowed.
+AI doesn't change that breakdown. It multiplies your impact within it. When execution gets compressed, you can expand scope and increase velocity without sacrificing quality. The depth of each artifact goes up. The prep work happens faster. And you can do all of it at a level of rigor that used to require more hours than the calendar allowed.
 
 Most program work has a repeatable shape. A kickoff has the same five questions regardless of the program. A status update has the same four components regardless of the team. An escalation needs the same three things to be useful: what changed, what it costs, and what the decision-maker needs to do.
 
@@ -36,7 +36,7 @@ That's the thesis: **AI compresses execution so that orchestration, judgment, an
 
 Each skill is a markdown file that gets invoked through Claude Code. When I call it, it pulls the relevant context — program state, stakeholder list, recent signals — and produces a structured output I can use directly or edit lightly before sharing.
 
-The skills don't try to replace judgment. They create the conditions for good judgment to happen faster. A good status update doesn't write itself because the AI generated a draft — it writes itself because the AI forced me to answer the right questions in the right order, and then I applied the context that only I have.
+The skills don't try to replace judgment. They create the conditions for good judgment to happen faster. A status update isn't good because the AI generated a draft — it's good because the skill forced me to answer the right questions in the right order, and I applied the context only I have.
 
 The other principle: one skill, one job. I didn't try to build a Swiss army knife. I built 20 scalpels. Each one has a clear input format, a clear output format, and a clear moment in the program lifecycle where it belongs.
 
@@ -52,6 +52,8 @@ These skills weren't designed in isolation — they follow the structure that pr
 
 ## The skills, by category
 
+The PMI view shows lifecycle coverage. Day to day I group them by the job they do — that's the cut below.
+
 ### Program setup
 
 **kickoff** — Structures the five questions that make or break a program start: what is the outcome and the date, what is fixed versus flexible across scope and resources, who owns decisions, what is the critical path, and what does failure look like. Forces the conversation I need to have anyway, before week two confusion makes it harder.
@@ -66,9 +68,9 @@ These skills weren't designed in isolation — they follow the structure that pr
 
 ### Execution and monitoring
 
-**status-update** — Produces an exec-ready status update from raw program notes. Output is structured: RAG signal, key progress, active risks with owners, decisions needed. Scales from a single team to portfolio-level reporting across parallel workstreams, at any altitude — ad-hoc, recurring leadership doc, or exec-review prep. Estimated time savings: what used to take 45 minutes now takes under 10.
+**status-update** — Produces an exec-ready status update from raw program notes. Output is structured: RAG signal, key progress, active risks with owners, decisions needed. Scales from a single team to portfolio-level reporting, at any altitude — ad-hoc, recurring leadership doc, or exec-review prep. What used to take 45 minutes now takes under 10.
 
-**tpm-rockstar** — A weekly monitoring standup. Scans Slack, Jira, RAID, and program docs for early warning signals — decision velocity dropping, RAID growing without movement, channels going quiet on business days. Surfaces risks before they become slips, so Monday starts with a triaged list instead of a blank page.
+**tpm-rockstar** — A weekly monitoring standup. Scans Slack, Jira, Smartsheet, RAID, and program docs in Drive for early warning signals — decision velocity dropping, RAID growing without movement, channels going quiet on business days. Surfaces risks before they become slips, so Monday starts with a triaged list instead of a blank page.
 
 **dependency-scan** — Scans a list of workstreams and milestones, identifies dependency chains, flags circular dependencies, and highlights critical path exposure.
 
@@ -90,7 +92,7 @@ These skills weren't designed in isolation — they follow the structure that pr
 
 ### Communications and alignment
 
-**comms** — Reformats a single technical update for multiple audiences: engineering Slack, exec summary, customer-facing changelog, and all-hands blurb. One input, four outputs, each calibrated to its audience and structured for its channel — no wall-of-text Slack threads — without requiring four separate drafts.
+**comms** — Unified stakeholder comms. One technical update in, four outputs out — engineering Slack, exec summary, customer-facing changelog, all-hands blurb — each calibrated to its audience and formatted for its channel, no wall-of-text Slack threads. Also triages the Slack inbox and drafts recognition posts, so everything outbound runs through one skill.
 
 **zoom-meeting-summary** — Converts raw meeting notes or a transcript into a structured summary: decisions made, action items with owners and dates, open questions. Gets the artifact out of the meeting and into the tracker in under five minutes.
 
@@ -100,7 +102,7 @@ These skills weren't designed in isolation — they follow the structure that pr
 
 **prd-review** — Reviews a PRD or RFC draft and surfaces gaps: undefined edge cases, missing metrics, unstated assumptions, and internal contradictions. Cheaper to find these in the document than in the post-launch retro.
 
-**retro** — Structures a sprint or program retrospective with prompts calibrated for honest reflection — what worked, what didn't, what would we do differently, and what specific behavior change do we commit to. Runs synchronously or async — collecting independent responses before synthesis when the team is distributed or when real-time facilitation would anchor the room.
+**retro** — Structures a sprint or program retrospective with prompts calibrated for honest reflection — what worked, what didn't, what would we do differently, and what specific behavior change do we commit to. Runs live or async — collecting independent responses first when real-time discussion would anchor the room.
 
 **roadmap-compare** — Compares two versions of a roadmap and surfaces what changed, what moved, what disappeared, and what the net impact is on the critical path. Useful for planning cycles and for making scope changes visible.
 
@@ -116,13 +118,13 @@ These skills weren't designed in isolation — they follow the structure that pr
 
 ### Coaching and program excellence
 
-**program-expert** — A per-program knowledge-base oracle and TPM coaching prompt that helps program managers think through a complex situation at the right altitude. Produces questions, not answers — designed to build judgment, not dependency.
+**program-expert** — A per-program knowledge base that coaches TPMs through complex situations at the right altitude. Produces questions, not answers — designed to build judgment, not dependency.
 
 ---
 
 ## What actually changed
 
-The most direct impact: reporting time dropped by roughly 85 percent. Status updates, escalation memos, and stakeholder communications that used to take the better part of a morning now take minutes. That time went back to the work that requires judgment — the conversations, the trade-off decisions, the coaching.
+The most direct impact: reporting time collapsed. A status update that took 45 minutes takes under 10. Escalation memos and stakeholder comms that used to take the better part of a morning now take minutes. These are my own timings, not projections. That time went back to the work that requires judgment — the conversations, the trade-off decisions, the coaching.
 
 The less obvious impact is harder to put a number on, but it matters more: the level of rigor went up without a corresponding increase in human cost. Prep work that used to wait for a meeting now happens the night before, async. Research that used to block a decision runs in the background while the conversation is already happening. You go into the room more prepared, not just faster.
 
@@ -138,7 +140,7 @@ These tools don't make good programs. They make the operational overhead of good
 
 The judgment work — understanding what the team is actually optimizing for, knowing which risks are real versus hypothetical, reading the room in an exec review and deciding what to say versus what to hold — that still requires experience, context, and relationship. No skill automates that.
 
-What these skills do is reduce the tax on judgment. Less time formatting, more time thinking. Less time reformatting the same update, more time getting the update right. Less time building the RAID log, more time making decisions on what's in it.
+What these skills do is reduce the tax on judgment. Less time formatting, more time thinking. Less time building the RAID log, more time making decisions on what's in it.
 
 The TPM role is being rewritten by AI — not eliminated, rewritten. The execution layer is getting compressed. The judgment layer is becoming more valuable. These tools are a bet on that direction.
 
@@ -146,11 +148,11 @@ The TPM role is being rewritten by AI — not eliminated, rewritten. The executi
 
 ## Building in public
 
-All of these skills are part of an ongoing project to build AI-native program management tooling and share it publicly. The goal is not to have a portfolio — it's to have proof. Anyone can say they work with AI. Fewer people can open a terminal and show you twenty tools doing the work.
+All of these skills are part of an ongoing project to build AI-native program management tooling and share it publicly. The goal is not to have a portfolio — it's to have proof. Anyone can say they work with AI. Fewer people can open a terminal and show you twenty tools doing the work. The catalog is live — every skill, the chains they form, and a day of them running on events and on a schedule — at [adrianhills.github.io/ai-pgm](https://adrianhills.github.io/ai-pgm/).
 
-If you're a senior leader hiring for a TPM role, or an early-stage company trying to figure out how to scale program management without scaling headcount in lockstep, I'm happy to walk through how these work in practice.
+If you're a senior leader hiring for a TPM role, or you're at an early-stage company figuring out how to scale program management without scaling headcount in lockstep, I'm happy to walk through how these work in practice.
 
-The tools run. The time savings are real. The philosophy is above.
+The tools run. The time savings are real.
 
 ---
 
