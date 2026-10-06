@@ -5,3 +5,8 @@ _site/
 vendor/
 .bundle/
 Gemfile.lock
+
+# notion-kindle pipeline build output
+notion-kindle/build/
+__pycache__/
+*.pyc
